@@ -1,0 +1,178 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <link href="prettify.css" type="text/css" rel="stylesheet" />
+    <link href="styles.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="prettify.js"></script>
+    <title>Handling text in Noda Time</title>
+  </head>
+  <body onload="prettyPrint()">
+    <h1>Handling text in Noda Time</h1>
+    <p>There are two primary options for text handling in Noda Time. You
+can either follow the "normal" approach from the .NET Base Class
+Library (BCL) or use the pattern-based approach which is specific to
+Noda Time. You are <em>encouraged</em> to use the pattern-based approach as
+we believe it is more robust, clearer, and performs better than the
+BCL approach - but the choice is yours. Ultimately the two APIs use
+the same implementation, so you can transition from on to the other
+without worrying about compatibility - or you can even mix and match
+the two, if you must.</p>
+
+<p>All the types responsible for text in Noda Time are in the
+<a href="../api/html/N_NodaTime_Text.htm">NodaTime.Text</a> namespace.</p>
+
+<h2>The pattern-based API</h2>
+
+<p>A <em>pattern</em> is an object capable of <em>parsing</em> from text to a specific
+type, and <em>formatting</em> a value to text. Parsing and formatting don't
+take any other options: the pattern knows everything about how to
+map between the value and text. In particular, internationalization
+is handled using a <a href="../api/html/T_NodaTime_Globalization_NodaFormatInfo.htm"><code>NodaFormatInfo</code></a>, which implements
+<a href="http://msdn.microsoft.com/en-us/library/system.iformatprovider.aspx"><code>IFormatProvider</code></a>.</p>
+
+<p>Whereas using the BCL approach the format
+information has to be specified on every call, using the pattern
+approach the format information is fixed for any particular pattern.
+Convenience methods are provided to create new pattern instances
+based on existing ones but with different internationalization
+information or other options.</p>
+
+<p>Each core Noda type has its own pattern type such as
+<a href="../api/html/T_NodaTime_Text_OffsetPattern.htm"><code>OffsetPattern</code></a>. All
+these patterns implement the
+<a href="../api/html/T_NodaTime_Text_IPattern_1.htm"><code>IPattern&lt;T&gt;</code></a> interface,
+which has simple <code>Format</code> and <code>Parse</code> methods taking just the value
+and text respectively. The result of <code>Parse</code> is a
+<a href="../api/html/T_NodaTime_Text_ParseResult_1.htm"><code>ParseResult&lt;T&gt;</code></a> which
+encapsulates both success and failure results.</p>
+
+<h2>The BCL-based API</h2>
+
+<p>Each of the core Noda Time types (<a href="../api/html/T_NodaTime_LocalDateTime.htm"><code>LocalDateTime</code></a>,
+<a href="../api/html/T_NodaTime_Instant.htm"><code>Instant</code></a> etc) provides (or will provide :) methods with the
+following signatures:</p>
+
+<p><strong>Formatting (instance methods):</strong></p>
+
+<ul>
+<li><code>ToString()</code>: Formats the value using the default pattern for the
+current thread's format provider.</li>
+<li><code>ToString(IFormatProvider)</code>: Formats the value using the default
+pattern for the specified format provider.</li>
+<li><code>ToString(string)</code>: Formats the value with the given pattern in
+the current thread's format provider.</li>
+<li><code>ToString(string, IFormatProvider)</code>: Formats the value with the
+given pattern and format provider.</li>
+</ul>
+
+<p><strong>Parsing (static methods):</strong></p>
+
+<ul>
+<li><code>Parse(string)</code>: Parses the given text in all default patterns for
+the current thread's format provider, throwing an exception if the
+text cannot be parsed.</li>
+<li><code>Parse(string, IFormatProvider)</code>: Parses the given text in all
+default patterns for the specified format provider, throwing an
+exception if the text cannot be parsed.</li>
+<li><code>ParseExact(string, string, IFormatProvider)</code>: Parses the given
+text in exactly the pattern and format provider specified, throwing
+an exception if the text cannot be parsed.</li>
+<li><code>TryParse(string, out ResultType)</code>: Attempts to parse the given
+text in all default patterns for the current thread's format
+provider, returning a <code>bool</code> value to indicate success or failure
+and using an <code>out</code> parameter to convey the parsed value (on success)
+or some default value (on failure).</li>
+<li><code>TryParse(string, IFormatProvider, out ResultType)</code>: Attempts to parse the given
+text in all default patterns for the given format
+provider, returning a <code>bool</code> value to indicate success or failure
+and using an <code>out</code> parameter to convey the parsed value (on success)
+or some default value (on failure).</li>
+<li><code>TryParseExact(string, string, IFormatProvider, out ResultType)</code>: Attempts to parse the given
+text in the exact pattern specified using the given format provider, 
+returning a <code>bool</code> value to indicate success or failure and using
+an <code>out</code> parameter to convey the parsed value (on success)
+or some default value (on failure).</li>
+<li><code>TryParseExact(string, string[], IFormatProvider, out ResultType)</code>: Attempts to parse the given
+text in any of the patterns specified using the given format provider,
+returning a <code>bool</code> value to indicate success or failure and using
+an <code>out</code> parameter to convey the parsed value (on success)
+or some default value (on failure).</li>
+</ul>
+
+<h2>Pattern text</h2>
+
+<p>Each type has its own separate pattern text documentation. The
+available patterns are as consistent as possible within reason, but
+documenting each separately avoids confusion with some field
+specifiers being available for some types but not others.</p>
+
+<ul>
+<li><a href="offset-patterns.html">Offset patterns</a></li>
+<li><a href="instant-patterns.html">Instant patterns</a></li>
+<li><a href="localtime-patterns.html">LocalTime patterns</a></li>
+<li><a href="localdate-patterns.html">LocalDate patterns</a></li>
+</ul>
+
+<h2><a name="custom-patterns">Custom patterns</a></h2>
+
+<p>All custom patterns support the following characters:</p>
+
+<table>
+  <thead>
+    <tr>
+      <td>Character</td>
+      <td>Meaning</td>
+      <td>Example</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>%</code></td>
+      <td>Escape to force a single-character custom pattern to be treated as such.</td>
+      <td><code>%H</code> => <code>5</code></td>
+    </tr>
+    <tr>
+      <td><code>'</code></td>
+      <td>
+        Open and close a text literal, which can include
+        double quotes.
+      </td>
+      <td><code>HH'H'mm'm'</code> => <code>07H30M</code></td>
+    </tr>
+    <tr>
+      <td><code>"</code></td>
+      <td>
+        Open and close a text literal, which can include
+        single quotes.
+      </td>
+      <td><code>HH"'"mm</code> => <code>07'30</code></td>
+    </tr>
+    <tr>
+      <td><code>\</code></td>
+      <td>
+        Escapes the following character.
+      </td>
+      <td><code>HH\'mm</code> => <code>07'30</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Additionally:</p>
+
+<ul>
+<li>Where valid, <code>:</code> always refers to the culture-specific time separator (a colon in the invariant culture)</li>
+<li>Where valid, <code>/</code> always refers to the culture-specific date separator (a forward slash in the invariant culture)</li>
+<li>Where valid, <code>.</code> always refers to the culture-specific decimal separator (a period in the invariant culture)</li>
+</ul>
+
+<p>Notes to come, including:</p>
+
+<ul>
+<li>Handling of duplicate fields vs inconsistent data</li>
+<li>Repeat character count including fractional values</li>
+<li>Template values</li>
+<li>Potential future options</li>
+</ul>
+
+  </body>
+</html>

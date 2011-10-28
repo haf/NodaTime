@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<VisualState xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ShowCheckBoxes="false">
+  <TopNode>[0-5220]NodaTime.Test.Text.LocalDatePatternTest.InvalidPatterns</TopNode>
+  <SelectedNode>[0-1000]D:\code\oss\noda-time\src\NodaTime.Test\Tests.nunit</SelectedNode>
+  <ExcludeCategories>false</ExcludeCategories>
+  <Nodes>
+    <Node UniqueName="[0-1000]D:\code\oss\noda-time\src\NodaTime.Test\Tests.nunit" Expanded="true" />
+    <Node UniqueName="[0-7573]D:\code\oss\noda-time\src\NodaTime.Test\bin\Debug\NodaTime.Test.dll" Expanded="true" />
+    <Node UniqueName="[0-7574]NodaTime" Expanded="true" />
+    <Node UniqueName="[0-7575]NodaTime.Test" Expanded="true" />
+    <Node UniqueName="[0-7576]NodaTime.Test.Calendars" Expanded="true" />
+    <Node UniqueName="[0-7580]NodaTime.Test.Fields" Expanded="true" />
+    <Node UniqueName="[0-7578]NodaTime.Test.Globalization" Expanded="true" />
+    <Node UniqueName="[0-6412]NodaTime.Test.OffsetTest" Expanded="true" />
+    <Node UniqueName="[0-7579]NodaTime.Test.Testing" Expanded="true" />
+    <Node UniqueName="[0-7577]NodaTime.Test.Text" Expanded="true" />
+    <Node UniqueName="[0-5219]NodaTime.Test.Text.LocalDatePatternTest" Expanded="true" />
+    <Node UniqueName="[0-1113]NodaTime.Test.Text.LocalDateTimePatternTest" Expanded="true" />
+    <Node UniqueName="[0-4093]NodaTime.Test.Text.LocalTimePatternTest" Expanded="true" />
+    <Node UniqueName="[0-7581]NodaTime.Test.Text.Patterns" Expanded="true" />
+    <Node UniqueName="[0-7582]NodaTime.Test.TimeZones" Expanded="true" />
+  </Nodes>
+</VisualState>
